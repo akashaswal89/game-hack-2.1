@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -79,6 +80,7 @@
             <tr>
                 <th>Number</th>
                 <th>Size</th>
+                <th>Size2.1</th> <!-- New column header -->
             </tr>
         </thead>
         <tbody>
@@ -88,73 +90,53 @@
 
     <script>
         const data = [
-            
             { number: 2, size: 'small' },
             { number: 3, size: 'big' },
-           
             { number: 6, size: 'small' },
             { number: 7, size: 'big' },
             { number: 10, size: 'small' },
-            
             { number: 12, size: 'big' },
             { number: 13, size: 'small' },
-           
             { number: 16, size: 'big' },
             { number: 17, size: 'small' },
             { number: 20, size: 'big' },
-           
             { number: 22, size: 'small' },
             { number: 23, size: 'big' },
-           
             { number: 26, size: 'small' },
             { number: 27, size: 'big' },
             { number: 30, size: 'small' },
-            
             { number: 32, size: 'big' },
             { number: 33, size: 'small' },
-         
             { number: 36, size: 'big' },
             { number: 37, size: 'small' },
             { number: 40, size: 'big' },
-          
             { number: 42, size: 'small' },
             { number: 43, size: 'big' },
-           
             { number: 46, size: 'small' },
             { number: 47, size: 'big' },
             { number: 50, size: 'small' },
-      
             { number: 52, size: 'big' },
             { number: 53, size: 'small' },
-            
             { number: 56, size: 'big' },
             { number: 57, size: 'small' },
             { number: 60, size: 'big' },
-          
             { number: 62, size: 'small' },
             { number: 63, size: 'big' },
-           
             { number: 66, size: 'small' },
             { number: 67, size: 'big' },
             { number: 70, size: 'small' },
-           
             { number: 72, size: 'big' },
             { number: 73, size: 'small' },
-           
             { number: 76, size: 'big' },
             { number: 77, size: 'small' },
             { number: 80, size: 'big' },
-           
             { number: 82, size: 'small' },
             { number: 83, size: 'big' },
-           
             { number: 86, size: 'small' },
             { number: 87, size: 'big' },
             { number: 90, size: 'small' },
-          
             { number: 92, size: 'big' },
             { number: 93, size: 'small' },
-          
             { number: 96, size: 'big' },
             { number: 97, size: 'small' },
             { number: 100, size: 'big' }
@@ -163,30 +145,32 @@
         const tableBody = document.getElementById('gameTable').getElementsByTagName('tbody')[0];
 
         function populateTable(data) {
-    tableBody.innerHTML = '';
-    const extraHighlighted = [3, 23,  43,  63,  83,   7, 27, 7, 47, 7, 67, 7, 87, 7,];
+            tableBody.innerHTML = '';
+            const extraHighlighted = [3, 23, 43, 63, 83, 7, 27, 47, 67, 87];
 
-    data.forEach(item => {
-        const row = tableBody.insertRow();
-        const cell1 = row.insertCell(0);
-        const cell2 = row.insertCell(1);
-        cell1.textContent = item.number;
-        cell2.textContent = item.size;
-        row.className = item.size;
+            data.forEach(item => {
+                const row = tableBody.insertRow();
+                const cell1 = row.insertCell(0);
+                const cell2 = row.insertCell(1);
+                const cell3 = row.insertCell(2); // New cell for Size2.1
+                cell1.textContent = item.number;
+                cell2.textContent = item.size;
+                cell3.textContent = item.size === 'big' ? 'even' : 'odd'; // Populate Size2.1
 
-        // Check for special highlighted numbers first
-        if (extraHighlighted.includes(item.number)) {
-            row.style.backgroundColor = '#feaa57';
-            row.style.color = 'white';
+                row.className = item.size;
+
+                // Check for special highlighted numbers first
+                if (extraHighlighted.includes(item.number)) {
+                    row.style.backgroundColor = '#feaa57';
+                    row.style.color = 'white';
+                }
+                // Then apply regular styling
+                else if (item.number % 2 === 0) {
+                    row.style.backgroundColor = item.size === 'big' ? '#feaa57' : '#6ea8f4';
+                    row.style.color = 'white';
+                }
+            });
         }
-        // Then apply regular styling
-        else if (item.number % 2 === 0) {
-            row.style.backgroundColor = item.size === 'big' ? '#feaa57' : '#6ea8f4';
-            row.style.color = 'white';
-        }
-    });
-}
-
 
         function filterTable() {
             const searchValue = document.getElementById('searchInput').value.toLowerCase();
